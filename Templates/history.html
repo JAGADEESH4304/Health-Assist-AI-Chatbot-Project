@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - MediQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+    
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='background1.jpg') }}");
+            background-size: contain;
+            background-position: center;
+        }
+    
+        .history-container {
+            background: white;
+            width: 600px;
+            min-width: 300px;
+            max-height: 80vh; /* Prevents it from growing too much */
+            min-height: 300px; /* Ensures a base size */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .header {
+            background-color: #003666;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+    
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    
+        .history-list {
+            flex-grow: 1;
+            overflow-y: auto; /* Enables scrolling inside container */
+            padding: 10px;
+            max-height: calc(80vh - 60px); /* Adjusted height to fit within container */
+        }
+    
+        .history-item {
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            justify-content: space-between;
+            gap: 15px;
+        }
+    
+        .history-text {
+            flex-grow: 1;
+        }
+    
+        .history-title {
+            font-size: 16px;
+            font-weight: 500; /* Corrected font weight */
+        }
+    
+        .history-date {
+            font-size: 12px;
+            color: #555555;  /* Darker color for better visibility */
+            font-style: italic;  /* Optional: for distinction */
+        }
+
+        .delete-btn, .details-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            color: red;
+            margin-right: 15px;
+        }
+
+        .details-btn {
+            font-size: 20px;
+        }
+
+        .delete-all-btn {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px; /* Larger font size for the symbol */
+            color: white; /* Set the delete symbol to white */
+            cursor: pointer;
+        }
+
+    </style>    
+</head>
+<body>
+    <div class="history-container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()" aria-label="Go back">&larr;</button>
+            <span>History</span>
+            <button class="delete-all-btn" onclick="deleteAllHistory()" aria-label="Delete all history">
+            </button>
+        </div>
+        <div class="history-list">
+            {% for chat in chat_history %}
+            <div class="history-item">
+                <div class="history-text">
+                    <p class="history-title"><strong>You:</strong> {{ chat["user_message"] }}</p>
+                    <p class="history-title"><strong>MediQ:</strong> {{ chat["bot_response"] }}</p>
+                    <p class="history-date">{{ chat["timestamp"] | default('No timestamp') }}</p>
+                </div>
+                <button class="delete-btn" onclick="deleteMessage('{{ loop.index0 }}')" aria-label="Delete message">&#128465;</button>
+                <button class="details-btn" onclick="showDetails('{{ loop.index0 }}')" aria-label="Show details">&rsaquo;</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function deleteMessage(index) {
+            console.log('Delete button clicked for index:', index); // Debugging line
+            fetch("/delete_message", {
+                method: "POST",
+                body: JSON.stringify({ index: index }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the history item from the DOM
+                    const historyItem = document.querySelectorAll('.history-item')[index];
+                    historyItem.remove(); // Remove the item from the list
+                } else {
+                    alert("Error deleting message!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function deleteAllHistory() {
+            console.log('Delete all button clicked'); // Debugging line
+            fetch("/delete_all_messages", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Clear the history list from the DOM
+                    const historyList = document.querySelector('.history-list');
+                    historyList.innerHTML = ''; // Remove all items
+                } else {
+                    alert("Error deleting all messages!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function showDetails(index) {
+            fetch("/get_details", {
+                method: "POST",
+                body: JSON.stringify({ index: index }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`You: ${data.user_message}\nMediQ: ${data.bot_response}`);
+                } else {
+                    alert("Error fetching details: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error fetching details:", error));
+        }
+    </script>
+</body>
+</html>

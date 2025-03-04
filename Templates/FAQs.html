@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Chat</title>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("static/background1.jpg"); /* Add your background */
+            background-size: contain;
+            background-repeat: repeat-x;
+        }
+        .chatbox-container {
+            width: 600px;
+            height: 500px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chatbox-header {
+            background-color: #003666;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .refresh-button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .chatbox-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message-container {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 75%;
+        }
+
+        .user-message-container {
+            justify-content: flex-end;
+        }
+
+        .user-message {
+            background-color: #8ac8ff;
+            color: #002647;
+            font-size: 15px;
+            order: -1;
+        }
+
+        .bot-message-container {
+            justify-content: flex-start;
+        }
+
+        .bot-message {
+            background-color: #003666;
+            color: white;
+            font-size: 15px;
+        }
+
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .chatbox-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+
+        .chatbox-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e9e9e9;
+            border-radius: 5px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .chatbox-send {
+            background-color: #003666;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chatbox-container">
+        <div class="chatbox-header">FAQs
+            <button class="back-btn" onclick="goBack()" aria-label="Go back">&larr;</button>
+            <a href="#" class="refresh-button" onclick="refreshFAQs()">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+        </div>
+        <div class="chatbox-body"></div>
+        <div class="chatbox-footer">
+            <input type="text" class="chatbox-input" placeholder="Type your message..." onkeydown="handleKeyPress(event)">
+            <button class="chatbox-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>    
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            let inputField = document.querySelector(".chatbox-input");
+            let message = inputField.value.trim();
+            let chatBody = document.querySelector(".chatbox-body");
+
+            if (message === "") return;
+
+            let userMessageContainer = document.createElement("div");
+            userMessageContainer.classList.add("chat-message-container", "user-message-container");
+
+            let userMessage = document.createElement("div");
+            userMessage.classList.add("chat-message", "user-message");
+            userMessage.innerText = message;
+
+            let userProfile = document.createElement("img");
+            userProfile.src = "static/user_profile.png";
+            userProfile.classList.add("profile-image");
+
+            userMessageContainer.appendChild(userMessage);
+            userMessageContainer.appendChild(userProfile);
+            chatBody.appendChild(userMessageContainer);
+
+            inputField.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let botMessageContainer = document.createElement("div");
+                botMessageContainer.classList.add("chat-message-container", "bot-message-container");
+
+                let botProfile = document.createElement("img");
+                botProfile.src = "static/bot_profile.png";
+                botProfile.classList.add("profile-image");
+
+                let botMessage = document.createElement("div");
+                botMessage.classList.add("chat-message", "bot-message");
+                botMessage.innerText = data.response;
+
+                botMessageContainer.appendChild(botProfile);
+                botMessageContainer.appendChild(botMessage);
+                chatBody.appendChild(botMessageContainer);
+
+                chatBody.scrollTop = chatBody.scrollHeight;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+        function refreshFAQs() {
+            let chatBody = document.querySelector(".chatbox-body");
+            chatBody.innerHTML = "";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MediQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .info-container {
+            background-color: #003666;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .section {
+            margin-bottom: 60px; /* Space between About Us and Developed By */
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        p {
+            color: white;
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="home-button">
+        <img src="{{ url_for('static', filename='home-icon.png') }}" alt="Home" width="30">
+    </a>
+    <div class="container">
+        <h1>Sympsis</h1>
+        <h4>One-stop destination for all your health queries</h4>
+        <a href="{{ url_for('login') }}">
+            <button style="font-family: 'Poppins', sans-serif !important;">Get Started</button>
+        </a>
+    </div>
+
+    <!-- Image Grid Section -->
+    <div class="image-container">
+        <div class="image-grid">
+            <img src="{{ url_for('static', filename='picture-1.jpg') }}" alt="Picture 1">
+            <img src="{{ url_for('static', filename='picture-2.jpg') }}" alt="Picture 2">
+            <img src="{{ url_for('static', filename='picture-3.jpg') }}" alt="Picture 3">
+            <img src="{{ url_for('static', filename='picture-4.jpg') }}" alt="Picture 4">
+        </div>
+    </div>
+
+    <!-- About Us & Developed By Section in One Container -->
+    <div class="info-container">
+        <div class="section">
+            <h2>About Us</h2>
+            <p>MediQ is an AI-powered health-assist chatbot designed to provide users with information about potential conditions based on their symptoms. With a user-friendly interface, MediQ helps users understand their health concerns quickly and efficiently. While it does not offer medical reminders or wellness tips, it serves as an initial point of guidance, empowering users with relevant health insights.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Developed By</h2>
+            <p>P. Anirudh Hruthen<br>
+               R. Poornima<br>
+               B. Jagadeesh<br>
+               K. Sai Manikanta Vinay</p>
+        </div>
+    </div>    
+</body>
+</html>
