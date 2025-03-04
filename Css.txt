@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+    background: url("../static/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centering the content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Spacing adjustments */
+h1 {
+    font-size: 65px;
+    color: #005096;
+    margin-bottom: 5px; /* Reduced space below "MediQ" */
+}
+
+h4 {
+    font-size: 20px;
+    color: #000000;
+    font-weight: medium;
+    margin-top: 5px; /* Adjusted space */
+}
+
+/* Button Styling */
+button {
+    background-color: #005096;
+    color: white;
+    width: 50px;
+    font-size: 20px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005096;
+}
+
+/* Login Box Styling */
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+}
+h3 {
+    margin-bottom: 20px;}
+/* Input Fields */
+
+/* Password Eye Icon */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+/* Button */
+button {
+    background-color: #005096;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #005096;
+}
+
+/* Create Account Link */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+p a {
+    color: #005096;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+p a:hover {
+    text-decoration: underline;
+    color: #005096;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .login-box {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+.or-divider {
+    margin: 15px 0;
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+}
+
+.google-btn img {
+    width: 20px; 
+    height: 20px; 
+    margin-right: 10px;
+}
+
+.google-btn:hover {
+    background: #f0f0f0;
+}
+
+/* Import Poppins Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');

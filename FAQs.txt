@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Chat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            background: url("static/background1.jpg");
+            background-size: contain;
+        }
+
+        .header {
+            background-color: #005096;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .back-arrow {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .faq-container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: 0.8s ease-out;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            display: none;
+            padding-top: 15px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #005096;
+        }
+
+        .arrow {
+            font-size: 16px;
+            color:#005096;
+            transition: transform 0.3s ease-out;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+
+        .chatbox-container {
+            width: 500px;
+            height: 250px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            background: white;
+            overflow: hidden;
+        }
+
+        .chatbox-header {
+            background-color: #005096;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .chatbox-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message-container {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 75%;
+        }
+
+        .user-message-container {
+            justify-content: flex-end;
+        }
+
+        .user-message {
+            background-color: #8ac8ff;
+            color: #002647;
+            font-size: 15px;
+            order: -1;
+        }
+
+        .bot-message-container {
+            justify-content: flex-start;
+        }
+
+        .bot-message {
+            background-color: #01539b;
+            color: white;
+            font-size: 15px;
+        }
+
+        .profile-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+
+        .chatbox-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+
+        .chatbox-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e9e9e9;
+            border-radius: 5px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .chatbox-send {
+            background-color: #005096;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="back-arrow" onclick="goBack()">&#x2190;</span>
+        FAQs
+    </div>
+
+    <div class="faq-container">
+        <div class="faq-item" onclick="toggleAnswer(0)">
+            <div class="faq-question">
+                What kind of health information can the chatbot provide?
+                <span class="arrow">&#x25BC;</span>
+            </div>
+            <div class="faq-answer">The chatbot provides general health tips and guidance but does not replace a doctor.</div>
+        </div>
+    
+        <div class="faq-item" onclick="toggleAnswer(1)">
+            <div class="faq-question">
+                Is the chatbot a substitute for a doctor?
+                <span class="arrow">&#x25BC;</span>
+            </div>
+            <div class="faq-answer">No, it provides informational support only. Always consult a medical professional.</div>
+        </div>
+    
+        <div class="faq-item" onclick="toggleAnswer(2)">
+            <div class="faq-question">
+                How accurate is the chatbot’s information?
+                <span class="arrow">&#x25BC;</span>
+            </div>
+            <div class="faq-answer">The chatbot sources information from reliable health resources, but accuracy is not guaranteed.</div>
+        </div>
+    
+        <div class="faq-item" onclick="toggleAnswer(3)">
+            <div class="faq-question">
+                Can the chatbot diagnose diseases?
+                <span class="arrow">&#x25BC;</span>
+            </div>
+            <div class="faq-answer">No, it can only provide information based on symptoms but cannot diagnose any disease.</div>
+        </div>
+    </div>
+    
+
+    <div class="chatbox-container">
+        <div class="chatbox-header">Chat</div>
+        <div class="chatbox-body"></div>
+        <div class="chatbox-footer">
+            <input type="text" class="chatbox-input" placeholder="Type your message..." onkeydown="handleKeyPress(event)">
+            <button class="chatbox-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>    
+        function goBack() {
+            window.history.back();
+        }
+        function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevents new line in input field
+        sendMessage();
+    }
+}
+
+
+        function toggleAnswer(index) {
+            let answers = document.querySelectorAll('.faq-answer');
+            let arrows = document.querySelectorAll('.arrow');
+
+            if (answers[index].style.display === "block") {
+                answers[index].style.display = "none";
+                arrows[index].classList.remove("rotate");
+            } else {
+                answers.forEach((answer, i) => answer.style.display = "none");
+                arrows.forEach(arrow => arrow.classList.remove("rotate"));
+
+                answers[index].style.display = "block";
+                arrows[index].classList.add("rotate");
+            }
+        }
+
+        function sendMessage() {
+            let inputField = document.querySelector(".chatbox-input");
+            let message = inputField.value.trim();
+            let chatBody = document.querySelector(".chatbox-body");
+
+            if (message === "") return;
+
+            // Add user message with profile
+            let userMessageContainer = document.createElement("div");
+            userMessageContainer.classList.add("chat-message-container", "user-message-container");
+
+            let userMessage = document.createElement("div");
+            userMessage.classList.add("chat-message", "user-message");
+            userMessage.innerText = message;
+
+            let userProfile = document.createElement("img");
+            userProfile.src = "static/user_profile.png";
+            userProfile.classList.add("profile-image");
+
+            userMessageContainer.appendChild(userMessage);
+            userMessageContainer.appendChild(userProfile);
+            chatBody.appendChild(userMessageContainer);
+
+            inputField.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            setTimeout(() => {
+                let botMessageContainer = document.createElement("div");
+                botMessageContainer.classList.add("chat-message-container", "bot-message-container");
+
+                let botProfile = document.createElement("img");
+                botProfile.src = "static/bot_profile.png";
+                botProfile.classList.add("profile-image");
+
+                let botMessage = document.createElement("div");
+                botMessage.classList.add("chat-message", "bot-message");
+                botMessage.innerText = "I'm a bot! How can I help you?";
+
+                botMessageContainer.appendChild(botProfile);
+                botMessageContainer.appendChild(botMessage);
+                chatBody.appendChild(botMessageContainer);
+
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>

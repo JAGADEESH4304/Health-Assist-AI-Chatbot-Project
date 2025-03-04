@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login to MediQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("{{ url_for('static', filename='background1.jpg') }}") no-repeat center center fixed;
+            background-size: contain;
+            background-repeat: repeat-x;
+        }
+        
+        .input-container {
+            position: center;
+            width: 100%;
+            margin: 12px 0;
+        }
+        
+        input {
+            width: 400px;
+            max-width: 350px;
+            height: 45px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background: #f9f9f9;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus {
+            border: 1px solid #02734B;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h3>Login</h3>
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="input-container">
+                    <input type="text" name="email" placeholder="Email/Phone" required>
+                </div>
+                <div class="input-container">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" style="font-family: 'Poppins', sans-serif !important;">Login</button>
+            </form>
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Create account</a></p>
+        </div>
+    </div>
+</body>
+</html>
