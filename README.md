@@ -12,4 +12,4 @@ The **Health Assist AI Chatbot** is an AI-powered virtual assistant designed to 
 
 
 
-***This chatbot aims to enhance accessibility to healthcare, providing users with instant, AI-driven medical assistance while promoting proactive health management. 🚀***
+***This chatbot aims to enhance accessibility to healthcare, providing users with instant, AI-driven medical assistance while promoting proactive health management. ***
