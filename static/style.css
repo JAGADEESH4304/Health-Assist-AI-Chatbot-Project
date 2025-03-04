@@ -1,0 +1,217 @@
+/* General Styles */
+body {
+    background: url("../static/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centering the content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Spacing adjustments */
+h1 {
+    font-size: 65px;
+    color: #003666;
+    margin-bottom: 5px; /* Reduced space below "MediQ" */
+}
+
+h4 {
+    font-size: 20px;
+    color: #000000;
+    font-weight: medium;
+    margin-top: 10px; /* Adjusted space */
+}
+
+/* Button Styling */
+button {
+    background-color: #003666;
+    color: white;
+    width: 100px;
+    font-size: 20px;
+    padding: 24px 32px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005096;
+}
+
+/* Login Box Styling */
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+}
+h3 {
+    margin-bottom: 20px;}
+/* Input Fields */
+
+/* Password Eye Icon */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+/* Button */
+button {
+    background-color: #003666;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+}
+
+/* Create Account Link */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+p a {
+    color: #003666;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+p a:hover {
+    text-decoration: underline;
+    color: #003666;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .login-box {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+.or-divider {
+    margin: 15px 0;
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+}
+
+.google-btn img {
+    width: 20px; 
+    height: 20px; 
+    margin-right: 10px;
+}
+
+.google-btn:hover {
+    background: #f0f0f0;
+}
+
+/* Import Poppins Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+.home-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    padding: 8px 13px;
+    border-radius: 500px;
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.container {
+    margin-top: 50px;
+}
+.home-button {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+}
+/* Centering Container */
+.image-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    width: 100vw; /* Full width */
+    overflow: hidden; /* Prevents any shifting */
+}
+
+/* Grid Layout */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Auto-sized columns */
+    row-gap: 50px;
+    column-gap: 50px;
+    justify-content: center; /* Ensures grid is centered */
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+/* Image Styling */
+.image-grid img {
+    width: 500px; /* Set fixed width for uniformity */
+    height: 400px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive - Single Column on Small Screens */
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: 1fr; /* Single column */
+    }
+}
